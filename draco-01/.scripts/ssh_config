@@ -1,0 +1,9 @@
+Host pve
+  Hostname 192.168.50.11
+  User root
+  Port 22
+
+Host unifi
+  Hostname 192.168.50.6
+  User shay
+  Port 1792
