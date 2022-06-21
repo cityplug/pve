@@ -1,7 +1,7 @@
 docker network create -d macvlan \
     --subnet=192.168.50.0/24 \
     --gateway=192.168.50.1 \
-    -o parent=eth0 cadmus_net
+    -o parent=eth0 draco-01_net
 
 echo
 sudo docker-compose up -d

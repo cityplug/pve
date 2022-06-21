@@ -1,57 +1,19 @@
 version: "3"
 
-networks:
-  cadmus_net:
-    external: true
-
 services:
   pihole:
     container_name: pihole
     image: pihole/pihole:latest
     environment:
       TZ: Europe/London
-      WEBPASSWORD: Szxs234.
-      ServerIP: 192.168.50.253
-    hostname: cadmus.pihole
+      WEBPASSWORD: 
+      WEBTHEME: dark"|"default
+    hostname: draco-01.pihole
     volumes:
       - /srv/.AppData/pihole:/etc/pihole/
       - /srv/.AppData/pihole/dnsmasq:/etc/dnsmasq.d/
     cap_add:
       - NET_ADMIN
-    restart: unless-stopped
-    networks:
-      cadmus_net:
-        ipv4_address: 192.168.50.253
-
-  homer:
-    container_name: homer
-    image: b4bz/homer
-    hostname: homer  
-    volumes:
-      - /srv/.AppData/homer/assets:/www/assets
-    ports:
-      - 85:8080
-    restart: always
-
-  unifi:
-    container_name: unifi
-    image: lscr.io/linuxserver/unifi-controller:latest
-    environment:
-      PUID: 0
-      PGID: 0
-      MEM_LIMIT: 1024
-      MEM_STARTUP: 1024
-    hostname: unifi
-    volumes:
-      - /srv/.AppData/unifi/config:/config
-    ports:
-      - 3478:3478/udp
-      - 10001:10001/udp
-      - 8080:8080
-      - 8443:8443
-      - 1900:1900/udp
-      - 6789:6789
-      - 5514:5514/udp
     restart: unless-stopped
 
   cloudflare-ddns:
@@ -63,7 +25,7 @@ services:
       PGID: 0
       API_KEY: ktez6xlMnDf0yaD5xGuUjgI-PV95A2Dn3tohz6wV
       ZONE: cityplug.co.uk
-      SUBDOMAIN: cadmus.cityplug.co.uk
+      SUBDOMAIN: home.cityplug.co.uk
 
   portainer:
     container_name: portainer
@@ -78,7 +40,7 @@ services:
   wg-easy:
     environment:
       PASSWORD: T1jan331
-      WG_HOST: cadmus.cityplug.co.uk
+      WG_HOST: home.cityplug.co.uk
       WG_PORT: 24792
       WG_PERSISTENT_KEEPALIVE: 25
       WG_DEFAULT_ADDRESS: 10.25.50.x
