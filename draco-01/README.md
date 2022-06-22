@@ -7,10 +7,11 @@ sudo usermod -aG sudo,adm shay && sudo visudo
 # Add the following to the bottom of file under includedir /etc/sudoers.d 
     shay ALL=(ALL) NOPASSWD: ALL
 # Copy ssh key to server
+su - shay
 sudo su
-mkdir -p /home/shay/.ssh/ && touch /home/shay/.ssh/authorized_keys
+apt install curl -y && mkdir -p /home/shay/.ssh/ && touch /home/shay/.ssh/authorized_keys
 curl https://github.com/cityplug.keys >> /home/shay/.ssh/authorized_keys
-#Secure SSH Server by changing default port
+# Secure SSH Server by changing default port
 nano -w /etc/ssh/sshd_config
     Find the line that says “#Port 22” and change it to: 
     Port ****
@@ -19,16 +20,17 @@ nano -w /etc/ssh/sshd_config
 # Scroll down further and find “PasswordAuthentication” and again change to “no” 
     PasswordAuthentication “no”
 --------------------------------------------------------------------------------
+echo "
+interface eth0
+static ip_address=192.168.50.250/24
+static routers=192.168.50.1" >> /etc/dhcpcd.conf
+------------------------------------------------------------------------------
 sudo su
 cd /opt
-apt install git -y && git clone https://github.com/cityplug/pve && chmod +x pve/draco-01/.scripts/*
+git clone https://github.com/cityplug/pve && chmod +x pve/draco-01/.scripts/*
 ------------------------------------------------------------------------------
 Run the following scripts
 cd pve/draco-01/.scripts/ && ./start.sh
 sudo su
-cd opt/pve/draco-01/.scripts/ && ./security.sh
+cd /opt/pve/draco-01/.scripts/ && ./security.sh
 --------------------------------------------------------------------------------
-# echo "
-# interface eth0
-# static ip_address=192.168.50.250/24
-# static routers=192.168.50.1" >> /etc/dhcpcd.conf

@@ -1,11 +1,6 @@
 #!/bin/bash
 
-# --- Add shay to docker user group
-usermod -aG docker shay
-
-# --- Docker Service
-docker ps
-systemctl enable docker
+# --- Complete script
 
 echo "
 net.ipv4.ip_forward = 1
