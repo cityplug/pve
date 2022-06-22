@@ -12,6 +12,10 @@ services:
     volumes:
       - /srv/.AppData/pihole:/etc/pihole/
       - /srv/.AppData/pihole/dnsmasq:/etc/dnsmasq.d/
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
     cap_add:
       - NET_ADMIN
     restart: unless-stopped

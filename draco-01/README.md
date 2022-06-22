@@ -26,10 +26,10 @@ static ip_address=192.168.50.250/24
 static routers=192.168.50.1" >> /etc/dhcpcd.conf
 ------------------------------------------------------------------------------
 sudo su
-cd /opt
+cd /opt && apt get update; apt install git -y 
 git clone https://github.com/cityplug/pve && chmod +x pve/draco-01/.scripts/*
 ------------------------------------------------------------------------------
-Run the following scripts
+# Run the following scripts
 cd pve/draco-01/.scripts/ && ./start.sh
 sudo su
 cd /opt/pve/draco-01/.scripts/ && ./security.sh

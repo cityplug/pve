@@ -9,7 +9,7 @@ sysctl -p
 
 echo "# --- Nginx SSL Addon --- #"
 #sudo certbot certonly --manual --preferred-challenges dns
-certbot --manual --preferred-challenges dns certonly -d home.cityplug.co.uk
+certbot --manual --preferred-challenges dns certonly -d home.cityplug.co.uk -d *.cityplug.co.uk
 nginx -t
 nginx -s reload
 

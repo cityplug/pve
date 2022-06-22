@@ -68,6 +68,11 @@ rm -rf /etc/issue.d/cockpit.issue /etc/motd.d/cockpit
 mv /opt/pve/draco-01/10-uname /etc/update-motd.d/ && chmod +x /etc/update-motd.d/10-uname
 
 mv /opt/pve/draco-01/.scripts/ssh_config /home/shay/.ssh/config
+
+echo "
+sudo systemctl restart ssh.service" >> ~/.bashrc 
+
+echo "#  ---  REBOOTING  ---  #"
 reboot
 
 # ----> Next Script | security.sh
