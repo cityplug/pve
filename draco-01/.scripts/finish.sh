@@ -13,8 +13,9 @@ certbot --manual --preferred-challenges dns certonly -d home.cityplug.co.uk -d *
 nginx -t
 nginx -s reload
 
+echo "# --- Enter pihole user password --- #"
+docker exec -it pihole pihole -a -p
 echo "#  ---  COMPLETED | REBOOT SYSTEM  ---  #"
-reboot
-
+exit
 
 
