@@ -11,4 +11,4 @@ usermod -aG ssh-users shay
 sed -i '15i\AllowGroups ssh-users\n' /etc/ssh/sshd_config
 
 # ----> Next Script
-./draco_net.sh
+./finish.sh

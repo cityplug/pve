@@ -1,6 +1,10 @@
 #!/bin/bash
 
-# --- Complete script
+sudo systemctl stop systemd-resolved
+sudo systemctl disable systemd-resolved
+
+echo
+sudo docker-compose up -d
 
 echo "
 net.ipv4.ip_forward = 1
