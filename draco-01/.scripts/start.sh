@@ -40,8 +40,6 @@ apt install ca-certificates -y
 apt install fail2ban -y
 apt install cockpit -y
 apt install cockpit-pcp -y
-echo "#  ---  Installing nginx  ---  #"
-apt install nginx; apt install python3-certbot-nginx -y
 # --- Install Docker
 mkdir -p /etc/apt/keyrings && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
@@ -69,8 +67,8 @@ mv /opt/pve/draco-01/10-uname /etc/update-motd.d/ && chmod +x /etc/update-motd.d
 
 mv /opt/pve/draco-01/.scripts/ssh_config /home/shay/.ssh/config
 
-echo "
-sudo systemctl restart ssh.service" >> ~/.bashrc 
+# --- Auto Service
+(crontab -l 2>/dev/null; echo "*/30 * * * * sudo systemctl restart ssh.service") | crontab -
 
 echo "#  ---  REBOOTING  ---  #"
 reboot
