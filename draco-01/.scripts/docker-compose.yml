@@ -7,7 +7,6 @@ services:
     environment:
       TZ: Europe/London
       WEBPASSWORD: 
-      WEBTHEME: dark"|"default
     hostname: draco-01.pihole
     volumes:
       - /srv/.AppData/pihole:/etc/pihole/
