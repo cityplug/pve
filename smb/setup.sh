@@ -33,7 +33,6 @@ mv /opt/pve/smb/hosts /etc/hosts
 # --- Install Packages
 echo "#  ---  Installing New Packages  ---  #"
 apt install unattended-upgrades -y
-# apt install openssh-server -y << DISABLE SSH
 apt install fail2ban -y
 # --- Install Samba
 apt install samba -y
@@ -45,7 +44,7 @@ mv /opt/pve/smb/10-uname /etc/update-motd.d/ && chmod +x /etc/update-motd.d/10-u
 
 mkdir -p /draco
 mkdir /draco/storage
-mkdir /draco/swap
+mkdir /draco/public
 mkdir /draco/backups
 
 # --- Setup samba share and config
@@ -55,7 +54,7 @@ usermod -aG sambashare shay
 
 chown -R shay:sambashare /draco/*
 #chmod -R 777 /draco/storage
-#chmod -R 777 /draco/swap
+#chmod -R 777 /draco/public
 #chmod -R 777 /draco/backups
 chmod -R 777 /draco/*
 
@@ -68,7 +67,10 @@ echo
 /etc/init.d/smbd restart
 /etc/init.d/nmbd restart
 
+# --- Secure UFW
+ufw allow samba
+ufw limit ssh
+ufw enable
+
 echo "#  ---  REBOOTING  ---  #"
 reboot
-
-# ----> Next Script | security.sh
