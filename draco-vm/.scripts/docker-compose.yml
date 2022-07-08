@@ -1,0 +1,76 @@
+version: "3"
+
+services:
+  pihole:
+    container_name: pihole_vm
+    image: pihole/pihole:latest
+    environment:
+      TZ: Europe/London
+      WEBPASSWORD: 
+    hostname: Draco-VM.pihole
+    volumes:
+      - /draco/.AppData/pihole:/etc/pihole/
+      - /draco/.AppData/pihole/dnsmasq:/etc/dnsmasq.d/
+    ports:
+      - "53:53/tcp"
+      - "53:53/udp"
+      - "80:80/tcp"
+    cap_add:
+      - NET_ADMIN
+    restart: unless-stopped
+
+  cloudflare-ddns:
+    container_name: home-cloudflareDNS
+    image: oznu/cloudflare-ddns:amd64
+    restart: always
+    environment:
+      PUID: 0
+      PGID: 0
+      API_KEY: ktez6xlMnDf0yaD5xGuUjgI-PV95A2Dn3tohz6wV
+      ZONE: cityplug.co.uk
+      SUBDOMAIN: home.cityplug.co.uk
+
+  homer:
+    container_name: homer
+    image: b4bz/homer:latest
+    hostname: homer  
+    volumes:
+      - /draco/.AppData/homer/assets:/www/assets
+    ports:
+      - 85:8080
+    restart: always
+
+  portainer:
+    container_name: portainer
+    image: portainer/portainer-ce:latest
+    restart: always
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /draco/.AppData/portainer/data:/data
+    ports:
+      - 9000:9000
+
+  wg-easy:
+    environment:
+      PASSWORD: T1jan331
+      WG_HOST: home.cityplug.co.uk
+      WG_PORT: 24792
+      WG_PERSISTENT_KEEPALIVE: 25
+      WG_DEFAULT_ADDRESS: 10.25.50.x
+      WG_DEFAULT_DNS: 1.1.1.1
+      WG_ALLOWED_IPS: 0.0.0.0/0, 192.168.50.1/24
+      
+    image: weejewel/wg-easy:latest
+    container_name: wireguard
+    volumes:
+      - /draco/.AppData/wireguard/:/etc/wireguard
+    ports:
+      - "24792:51820/udp"
+      - "24792:51821/tcp"
+    restart: unless-stopped
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    sysctls:
+      - net.ipv4.ip_forward=1
+      - net.ipv4.conf.all.src_valid_mark=1

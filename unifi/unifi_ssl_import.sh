@@ -16,18 +16,18 @@
 # and be back online immediately.
 
 # CONFIGURATION OPTIONS
-UNIFI_HOSTNAME=hostname.example.com
+UNIFI_HOSTNAME=unifi.cityplug.co.uk
 UNIFI_SERVICE=unifi
 
 # Uncomment following three lines for Fedora/RedHat/CentOS
-UNIFI_DIR=/opt/UniFi
-JAVA_DIR=${UNIFI_DIR}
-KEYSTORE=${UNIFI_DIR}/data/keystore
+#UNIFI_DIR=/opt/UniFi
+#JAVA_DIR=${UNIFI_DIR}
+#KEYSTORE=${UNIFI_DIR}/data/keystore
 
 # Uncomment following three lines for Debian/Ubuntu
-#UNIFI_DIR=/var/lib/unifi
-#JAVA_DIR=/usr/lib/unifi
-#KEYSTORE=${UNIFI_DIR}/keystore
+UNIFI_DIR=/var/lib/unifi
+JAVA_DIR=/usr/lib/unifi
+KEYSTORE=${UNIFI_DIR}/keystore
 
 # Uncomment following three lines for CloudKey
 #UNIFI_DIR=/var/lib/unifi
