@@ -23,7 +23,7 @@ apt-daily.service apt-daily.timer apt-daily-upgrade.timer apt-daily-upgrade.serv
 echo "#  ---  Change root password  ---  #"
 passwd root
 echo "#  ---  Root password changed  ---  #"
-
+adduser shay
 # --- Initialzing draco-smb
 hostnamectl set-hostname draco-smb.home.lan
 hostnamectl set-hostname "draco file server" --pretty
