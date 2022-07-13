@@ -1,6 +1,6 @@
 ---
 
-subtitle: "Draco-00 Management"
+subtitle: "Draco-BM Management"
 
 # This overwrites message config. Setting it to empty to remove message from this page and keep it only in the main one:
 message: ~
@@ -24,14 +24,14 @@ services:
     items:
       - name: "Pihole-BM"
         logo: "assets/tools/pihole.png"
-        subtitle: "DNS & Ad Blocker"
+        subtitle: "DNS"
         tag: "service"
         tagstyle: "is-success"
         url: "http://192.168.50.253"
         target: "_blank" # optional html a tag target attribute
       - name: "Unifi Home"
         logo: "assets/tools/unifi.png"
-        subtitle: "Ubiquiti Remote Management"
+        subtitle: "Ubiquiti Remote"
         tag: "core"
         tagstyle: "is-link"
         url: "https://192.168.50.254:8443"

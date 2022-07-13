@@ -2,50 +2,64 @@
 
 # Ubuntu (unifi.cityplug.co.uk) setup script.
 
-# Create user 
-apt update && adduser shay
-# Grant new user account with privileges & assign new privileges
-usermod -aG sudo,adm,ssh shay && visudo
-# Add the following underneath User privilege specification 
-        shay	ALL=(ALL:ALL) ALL 
-# Add the following to the bottom of file under includedir /etc/sudoers.d 
-        shay ALL=(ALL) NOPASSWD: ALL
-# Copy ssh key to server
-apt install curl -y && mkdir -p /home/shay/.ssh/ && touch /home/shay/.ssh/authorized_keys
-curl https://github.com/cityplug.keys >> /home/shay/.ssh/authorized_keys
-# Secure SSH Server by changing default port
-nano -w /etc/ssh/sshd_config
-# Find the line that says “#Port 22” and change it to: 
-        Port ****
-# Scroll down until you find the line that says “PermitRootLogin” and change to “no” 
-        PermitRootLogin “no”
-# Scroll down further and find “PasswordAuthentication” and again change to “no” 
-        PasswordAuthentication “no”
-reboot
+# --- Remove Bloatware
+echo "#  ---  Removing Bloatware  ---  #"
+apt update && apt dist-upgrade -y
+apt-get autoremove && apt-get autoclean -y
 
-sudo su
-echo "Set disable_coredump false" >> /etc/sudo.conf
+# --- Disable Services
+echo "#  ---  Disabling Bloatware Services  ---  #"
+systemctl stop sys-kernel-debug.mount \
+systemd-udev-trigger.service systemd-journald.service \
+systemd-fsck-root.service systemd-logind.service \
+apt-daily.service apt-daily.timer apt-daily-upgrade.timer apt-daily-upgrade.service
+
+systemctl disable sys-kernel-debug.mount \
+systemd-udev-trigger.service systemd-journald.service \
+systemd-fsck-root.service systemd-logind.service \
+apt-daily.service apt-daily.timer apt-daily-upgrade.timer apt-daily-upgrade.service
+
+# --- Change root password
+echo "#  ---  Change root password  ---  #"
+passwd root
+echo "#  ---  Root password changed  ---  #"
+adduser shay
+# --- Initialzing unifi
+hostnamectl set-hostname unifi.cityplug.co.uk
+hostnamectl set-hostname "unifi" --pretty
+rm -rf /etc/hosts
+mv /opt/pve/unifi/hosts /etc/hosts
+
 # --- Install Packages
-apt-get install \
-    ca-certificates \
-    wget \
-    unattended-upgrades \
-    fail2ban \
-    openssh-server \
-    letsencrypt \
-    lsb-release
+echo "#  ---  Installing New Packages  ---  #"
+apt install ca-certificates -y
+apt install wget -y
+apt install unattended-upgrades -y
+apt install fail2ban -y
+apt install letsencrypt -y
     
-wget https://get.glennr.nl/unifi/install/unifi-7.1.66.sh && bash unifi-7.1.66.sh
+# --- Addons
+echo "#  ---  Running Addons  ---  #"
+rm -rf /etc/update-motd.d/* && rm -rf /etc/motd
+mv /opt/pve/unifi/10-uname /etc/update-motd.d/ && chmod +x /etc/update-motd.d/10-uname
+usermod -aG sudo shay
+systemctl disable ssh
+dpkg-reconfigure tzdata
+dpkg-reconfigure --priority=low unattended-upgrades
 
-# Request certificate from Letsencrypt
+echo "#  ---  Installing Unifi  ---  #"
+wget https://get.glennr.nl/unifi/install/unifi-7.1.67.sh && bash unifi-7.1.67.sh
+
+wget https://raw.githubusercontent.com/cityplug/pve/unifi/unifi_ssl_import.sh -O /usr/local/bin/unifi_ssl_import.sh
+chmod +x /usr/local/bin/unifi_ssl_import.sh
+
+# --- SSL
 certbot -d unifi.cityplug.co.uk --manual --preferred-challenges dns certonly
+sudo /usr/local/bin/unifi_ssl_import.sh
 
-wget https://raw.githubusercontent.com/cityplug/odin/main/unifi_ssl_import.sh -O /usr/local/bin/unifi_ssl_import.sh
-# comment changes the red-hot lines and uncomment the detain ubuntu lines and set your host name unifi.yourdomain.com
-nano -w /usr/local/bin/unifi_ssl_import.sh
-                Change LE_MODE to yes
-                service unifi status
 # Automate renewal script
 echo "
 0 * * */2 * root letsencrypt renew
-5 * * */2 * root unifi_ssl_import.sh" >>/etc/crontab
+5 * * */2 * root unifi_ssl_import.sh
+0 0 1 * * sudo apt update && sudo apt dist-upgrade -y
+0 0 1 */2 * root reboot" >>/etc/crontab

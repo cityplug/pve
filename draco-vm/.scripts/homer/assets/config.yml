@@ -80,7 +80,7 @@ services:
         subtitle: "Server Management GUI"
         tag: "service"
         tagstyle: "is-success"
-        url: "#"
+        url: "https://192.168.50.250:9090/"
         target: "_blank" # optional html a tag target attribute
       - name: "Pihole-VM"
         logo: "assets/tools/pihole.png"

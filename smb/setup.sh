@@ -41,6 +41,8 @@ apt install samba -y
 echo "#  ---  Running Addons  ---  #"
 rm -rf /etc/update-motd.d/* && rm -rf /etc/motd
 mv /opt/pve/smb/10-uname /etc/update-motd.d/ && chmod +x /etc/update-motd.d/10-uname
+usermod -aG sudo shay
+systemctl disable ssh
 
 mkdir -p /draco
 mkdir /draco/storage

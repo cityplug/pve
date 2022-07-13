@@ -6,7 +6,6 @@
 echo "#  ---  Removing Bloatware  ---  #"
 apt update && apt dist-upgrade -y
 apt-get autoremove && apt-get autoclean -y
-rm -rf python_games && rm -rf /usr/games/
 
 # --- Disable Services
 echo "#  ---  Disabling Bloatware Services  ---  #"
@@ -37,7 +36,6 @@ apt install unattended-upgrades -y
 apt install netdiscover -y
 apt install net-tools -y
 apt install openssh-server -y
-apt install gnupg -y
 apt install ca-certificates -y
 apt install fail2ban -y
 apt install cockpit -y
