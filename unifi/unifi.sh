@@ -67,13 +67,20 @@ echo "
 
 # scp /usr/lib/unifi/data/backup/autobackup/* 192.168.50.**
 
-ufw allow 8880
-ufw allow 8843
 ufw allow 3478/udp
+ufw allow 10001/udp
 ufw allow 8080
 ufw allow 8443
+ufw allow 1900/udp
+ufw allow 6789
+ufw allow 5514/udp
+
+#ufw allow 8880
+#ufw allow 8843
+#ufw allow from 192.168.50.*** to any port 22
 
 ufw allow 80
 ufw allow 443
-ufw limit 22
+ufw deny 22
+ufw logging on
 ufw enable
