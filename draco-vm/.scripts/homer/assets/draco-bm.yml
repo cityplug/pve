@@ -36,3 +36,10 @@ services:
         tagstyle: "is-link"
         url: "https://192.168.50.254:8443"
         target: "_blank" # optional html a tag target attribute
+      - name: "Shell"
+        logo: "assets/tools/shell.png"
+        subtitle: ""
+        tag: "core"
+        tagstyle: "is-link"
+        url: "https://192.168.50.254:6105/"
+        target: "_blank" # optional html a tag target attribute

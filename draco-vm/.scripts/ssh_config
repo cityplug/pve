@@ -3,11 +3,6 @@ Host pve
   User root
   Port 22
 
-Host unifi
-  Hostname 192.168.50.6
-  User shay
-  Port 1792
-
 Host draco-bm
   Hostname 192.168.50.254
   User shay
