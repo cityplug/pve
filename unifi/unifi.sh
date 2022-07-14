@@ -34,6 +34,7 @@ mv /opt/pve/unifi/hosts /etc/hosts
 echo "#  ---  Installing New Packages  ---  #"
 apt install ca-certificates -y
 apt install wget -y
+apt install ntp -y
 apt install unattended-upgrades -y
 apt install fail2ban -y
 apt install letsencrypt -y
@@ -56,10 +57,23 @@ chmod +x /usr/local/bin/unifi_ssl_import.sh
 # --- SSL
 certbot -d unifi.cityplug.co.uk --manual --preferred-challenges dns certonly
 sudo /usr/local/bin/unifi_ssl_import.sh
-
+ln -s /usr/local/bin/unifi_ssl_import.sh /etc/letsencrypt/renewal-hooks/deploy/01-unifi_ssl_import
 # Automate renewal script
 echo "
-0 * * */2 * root letsencrypt renew
-5 * * */2 * root unifi_ssl_import.sh
+# 0 * * */2 * root letsencrypt renew
+# 5 * * */2 * root unifi_ssl_import.sh
 0 0 1 * * sudo apt update && sudo apt dist-upgrade -y
 0 0 1 */2 * root reboot" >>/etc/crontab
+
+# scp /usr/lib/unifi/data/backup/autobackup/* 192.168.50.**
+
+ufw allow 8880
+ufw allow 8843
+ufw allow 3478/udp
+ufw allow 8080
+ufw allow 8443
+
+ufw allow 80
+ufw allow 443
+ufw limit 22
+ufw enable

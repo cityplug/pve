@@ -7,3 +7,5 @@ Host draco-bm
   Hostname 192.168.50.254
   User shay
   Port 4792
+
+#ssh -i /Users/YOURUSERNAME/.ssh/myserver_rsa -p 44 funkymonkey@10.10.10.10
