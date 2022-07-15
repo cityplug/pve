@@ -40,6 +40,7 @@ apt install ca-certificates -y
 apt install fail2ban -y
 apt install cockpit -y
 apt install cockpit-pcp -y
+apt install systemd-timesyncd
 # --- Install Docker
 mkdir -p /etc/apt/keyrings && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
@@ -68,6 +69,10 @@ mv /opt/pve/draco-vm/10-uname /etc/update-motd.d/ && chmod +x /etc/update-motd.d
 
 mv /opt/pve/draco-vm/.scripts/ssh_config /home/shay/.ssh/config
 #echo "Set disable_coredump false" >> /etc/sudo.conf
+
+dpkg-reconfigure tzdata
+timedatectl set-ntp true
+timedatectl set-local-rtc 0
 
 # --- Auto Service
 (crontab -l 2>/dev/null; echo "*/30 * * * * sudo systemctl restart ssh.service") | crontab -

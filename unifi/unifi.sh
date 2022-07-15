@@ -51,13 +51,13 @@ dpkg-reconfigure --priority=low unattended-upgrades
 echo "#  ---  Installing Unifi  ---  #"
 wget https://get.glennr.nl/unifi/install/unifi-7.1.67.sh && bash unifi-7.1.67.sh
 
-wget https://raw.githubusercontent.com/cityplug/pve/unifi/unifi_ssl_import.sh -O /usr/local/bin/unifi_ssl_import.sh
-chmod +x /usr/local/bin/unifi_ssl_import.sh
+#wget https://raw.githubusercontent.com/cityplug/pve/main/unifi/unifi_ssl_import.sh -O /usr/local/bin/unifi_ssl_import.sh
+#chmod +x /usr/local/bin/unifi_ssl_import.sh
 
 # --- SSL
-certbot -d unifi.cityplug.co.uk --manual --preferred-challenges dns certonly
-sudo /usr/local/bin/unifi_ssl_import.sh
-ln -s /usr/local/bin/unifi_ssl_import.sh /etc/letsencrypt/renewal-hooks/deploy/01-unifi_ssl_import
+#certbot -d unifi.cityplug.co.uk --manual --preferred-challenges dns certonly
+#sudo /usr/local/bin/unifi_ssl_import.sh
+#ln -s /usr/local/bin/unifi_ssl_import.sh /etc/letsencrypt/renewal-hooks/deploy/01-unifi_ssl_import
 # Automate renewal script
 echo "
 # 0 * * */2 * root letsencrypt renew
