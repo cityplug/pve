@@ -22,7 +22,7 @@ apt-daily.service apt-daily.timer apt-daily-upgrade.timer apt-daily-upgrade.serv
 # --- Change root password
 echo "#  ---  Change root password  ---  #"
 passwd root
-echo "#  ---  Root password changed  ---  #"
+echo "#  ---  Add user password  ---  #"
 adduser shay
 # --- Initialzing unifi
 hostnamectl set-hostname unifi.cityplug.co.uk
