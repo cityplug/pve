@@ -4,11 +4,10 @@ git clone https://github.com/cityplug/pve && chmod +x pve/unifi/*
 # Run the following scripts
 cd pve/unifi/ && ./unifi.sh
 ------------------------------------------------------------------------------
+# SSL
 certbot -d unifi.cityplug.co.uk --manual --preferred-challenges dns certonly
-	Select option 1
-	Enter email address
-	Enter unifi domain
-reboot
+sudo /usr/local/bin/unifi_ssl_import.sh
+ln -s /usr/local/bin/unifi_ssl_import.sh /etc/letsencrypt/renewal-hooks/deploy/01-unifi_ssl_import
 ------------------------------------------------------------------------------
 	 
 
