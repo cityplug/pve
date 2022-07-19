@@ -61,4 +61,3 @@ ufw allow 80
 ufw allow 443
 ufw deny 22
 ufw logging on
-ufw enable
