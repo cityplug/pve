@@ -40,8 +40,8 @@ chmod +x /usr/local/bin/unifi_ssl_import.sh
 
 # Automate renewal script
 echo "
-# 0 * * */2 * root letsencrypt renew
-# 5 * * */2 * root unifi_ssl_import.sh
+0 * * */2 * root letsencrypt renew
+5 * * */2 * root unifi_ssl_import.sh
 0 0 1 * * sudo apt update && sudo apt dist-upgrade -y
 0 0 1 */2 * root reboot" >>/etc/crontab
 
