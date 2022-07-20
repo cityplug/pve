@@ -20,6 +20,8 @@ mv /opt/pve/unifi/hosts /etc/hosts
 # --- Install Packages
 echo "#  ---  Installing New Packages  ---  #"
 apt install ca-certificates -y
+apt install net-tools -y
+apt install curl -y
 apt install wget -y
 apt install unattended-upgrades -y
 apt install letsencrypt -y
