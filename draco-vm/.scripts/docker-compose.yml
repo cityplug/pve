@@ -19,6 +19,16 @@ services:
       - NET_ADMIN
     restart: unless-stopped
 
+  unbound:
+    container_name: unbound
+    image: mvance/unbound:latest
+    volumes:
+      - /draco/.AppData/unbound:/opt/unbound/etc/unbound/
+    ports:
+      - 5335:53/upd
+      - 5335:53/tcp
+    restart: always
+
   cloudflare-ddns:
     container_name: home-cloudflareDNS
     image: oznu/cloudflare-ddns:amd64
