@@ -1,0 +1,48 @@
+version: "3"
+services:
+
+  portainer:
+    container_name: portainer_agent
+    image: portainer/agent:2.11.1
+    restart: always
+    ports:
+      - "9001:9001"
+    environment:
+      - TZ=Europe/London
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /var/lib/docker/volumes:/var/lib/docker/volumes
+      - /opt/portainer:/data
+
+  app:
+    container_name: npm
+    image: 'jc21/nginx-proxy-manager:latest'
+    restart: unless-stopped
+    ports:
+      - '80:80'
+      - '443:443'
+      - '81:81'
+      - '21:21'
+    environment:
+      DB_MYSQL_HOST: "db"
+      DB_MYSQL_PORT: 3306
+      DB_MYSQL_USER: "shay"
+      DB_MYSQL_PASSWORD: "Szxs234."
+      DB_MYSQL_NAME: "npm"
+    volumes:
+      - /opt/npm/data:/data
+      - /opt/npm/letsencrypt:/etc/letsencrypt
+    depends_on:
+      - db
+
+  db:
+    container_name: npm_db
+    image: 'jc21/mariadb-aria:latest'
+    restart: unless-stopped
+    environment:
+      MYSQL_ROOT_PASSWORD: 'T0day.T1jan331'
+      MYSQL_DATABASE: 'npm'
+      MYSQL_USER: 'shay'
+      MYSQL_PASSWORD: 'Szxs234.'
+    volumes:
+      - /opt/npm/data/mysql:/var/lib/mysql

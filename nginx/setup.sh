@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# Raspbian (draco file server v1) setup script.
+# Raspbian (npm v1) setup script.
 
 # --- Remove Bloatware
 echo "#  ---  Removing Bloatware  ---  #"
@@ -25,8 +25,8 @@ passwd root
 echo "#  ---  Root password changed  ---  #"
 adduser shay
 # --- Initialzing nginx
-hostnamectl set-hostname nginx.home.lan
-hostnamectl set-hostname "nginx" --pretty
+hostnamectl set-hostname npm.home.lan
+hostnamectl set-hostname "npm" --pretty
 rm -rf /etc/hosts
 mv /opt/pve/smb/hosts /etc/hosts
 
@@ -34,6 +34,11 @@ mv /opt/pve/smb/hosts /etc/hosts
 echo "#  ---  Installing New Packages  ---  #"
 apt install unattended-upgrades -y
 apt install fail2ban -y
+apt install systemd-timesyncd -y
+apt install curl -y
+apt install gpg -y
+apt install ca-certificates -y
+apt install gnupg -y
 # --- Install Docker
 mkdir -p /etc/apt/keyrings && curl -fsSL https://download.docker.com/linux/ubuntu/gpg | gpg --dearmor -o /etc/apt/keyrings/docker.gpg
 
@@ -66,6 +71,10 @@ timedatectl set-local-rtc 0
 
 # --- Auto Service
 (crontab -l 2>/dev/null; echo "*/30 * * * * sudo systemctl restart ssh.service") | crontab -
+
+# --- Install Portainer Agent & npm
+
+ docker-compose up -d
 
 echo "#  ---  REBOOTING  ---  #"
 reboot
