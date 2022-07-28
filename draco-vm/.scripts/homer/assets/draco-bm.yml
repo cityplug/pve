@@ -43,3 +43,13 @@ services:
         tagstyle: "is-link"
         url: "https://192.168.50.254:6105/"
         target: "_blank" # optional html a tag target attribute
+  - name: "// Dev"
+#    icon: "fas fa-cloud"
+    items:
+      - name: "Stars Grooming"
+        logo: "assets/tools/wp.png"
+        subtitle: ""
+        tag: ""
+        tagstyle: "is-link"
+        url: "http://192.168.50.7:8977"
+        target: "_blank" # optional html a tag target attribute

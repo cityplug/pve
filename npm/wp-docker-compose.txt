@@ -1,0 +1,29 @@
+version: '3.1'
+
+services:
+
+  wordpress:
+    container_name: wordpress
+    image: wordpress
+    restart: always
+    ports:
+      - 8977:80
+    environment:
+      WORDPRESS_DB_HOST: db
+      WORDPRESS_DB_USER: shay
+      WORDPRESS_DB_PASSWORD: Szxs234.
+      WORDPRESS_DB_NAME: dev
+    volumes:
+      - /draco/stars:/var/www/html
+
+  db:
+    container_name: wordpress_db
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: dev
+      MYSQL_USER: shay
+      MYSQL_PASSWORD: Szxs234.
+      MYSQL_RANDOM_ROOT_PASSWORD: 'T0day.T1jan331'
+    volumes:
+      - /draco/stars/db:/var/lib/mysql
