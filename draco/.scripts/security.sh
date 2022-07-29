@@ -2,7 +2,7 @@
 
 # --- Secure Fail2Ban
 echo "#  ---  Securing fail2ban --- #"
-mv /opt/pve/draco-vm/.scripts/jail.local /etc/fail2ban/jail.local
+mv /opt/pve/draco/.scripts/jail.local /etc/fail2ban/jail.local
 systemctl restart fail2ban
 
 # --- Addons

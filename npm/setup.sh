@@ -74,7 +74,10 @@ timedatectl set-local-rtc 0
 
 # --- Install Portainer Agent & npm
 
- docker-compose up -d
+docker-compose up -d
+
+mv wp-docker-compose.txt /draco/docker-compose.yml
+cd /draco && docker-compose up -d
 
 echo "#  ---  REBOOTING  ---  #"
 reboot

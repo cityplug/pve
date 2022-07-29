@@ -3,7 +3,7 @@ Host pve
   User root
   Port 22
 
-Host draco-bm
+Host metal
   Hostname 192.168.50.254
   User shay
   Port 4792

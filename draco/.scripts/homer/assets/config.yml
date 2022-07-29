@@ -118,10 +118,10 @@ services:
   - name: "//Estate"
     icon: "fa-solid fa-house-lock"
     items:
-      - name: "Draco-BM"
+      - name: "Metal"
         logo: "assets/tools/ghost.png"
         subtitle: ""
         tag: "bridge"
         tagstyle: "is-link"
-        url: "#draco-bm"
+        url: "#metal"
 #        target: "_blank" # optional html a tag target attribute

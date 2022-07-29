@@ -23,12 +23,12 @@ reboot
 --------------------------------------------------------------------------------
 sudo su
 cd /opt && apt update; apt install git -y 
-git clone https://github.com/cityplug/pve && chmod +x pve/draco-vm/.scripts/*
+git clone https://github.com/cityplug/pve && chmod +x pve/draco/.scripts/*
 ------------------------------------------------------------------------------
 # Run the following scripts
-cd pve/draco-vm/.scripts/ && ./start.sh
+cd pve/draco/.scripts/ && ./start.sh
 sudo su
-cd /opt/pve/draco-vm/.scripts/ && ./security.sh
+cd /opt/pve/draco/.scripts/ && ./security.sh
 --------------------------------------------------------------------------------
 # echo "
 # interface eth0

@@ -24,11 +24,11 @@ echo "#  ---  Change root password  ---  #"
 passwd root
 echo "#  ---  Root password changed  ---  #"
 
-# --- Initialzing draco-vm
-hostnamectl set-hostname draco-vm.home.lan
+# --- Initialzing draco
+hostnamectl set-hostname draco.home.lan
 hostnamectl set-hostname "draco-virtual machine" --pretty
 rm -rf /etc/hosts
-mv /opt/pve/draco-vm/.scripts/hosts /etc/hosts
+mv /opt/pve/draco/.scripts/hosts /etc/hosts
 
 # --- Install Packages
 echo "#  ---  Installing New Packages  ---  #"
@@ -65,9 +65,9 @@ mkdir /draco/.AppData/
 
 rm -rf /etc/update-motd.d/* && rm -rf /etc/motd
 rm -rf /etc/issue.d/cockpit.issue /etc/motd.d/cockpit
-mv /opt/pve/draco-vm/10-uname /etc/update-motd.d/ && chmod +x /etc/update-motd.d/10-uname
+mv /opt/pve/draco/10-uname /etc/update-motd.d/ && chmod +x /etc/update-motd.d/10-uname
 
-mv /opt/pve/draco-vm/.scripts/ssh_config /home/shay/.ssh/config
+mv /opt/pve/draco/.scripts/ssh_config /home/shay/.ssh/config
 #echo "Set disable_coredump false" >> /etc/sudo.conf
 
 dpkg-reconfigure tzdata
